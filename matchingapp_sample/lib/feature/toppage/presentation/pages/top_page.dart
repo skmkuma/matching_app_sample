@@ -44,6 +44,10 @@ class TopPage extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.only(top: 720),
           child: SignInSupportButton(),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(top: 790),
+          child: UsePrivacyPolicyButton(),
         )
       ],
     );
@@ -153,77 +157,102 @@ class SignInSupportButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _makeTextButton() {
-      const List<String> _text = [
-        'その他の方法でサインイン',
-        'ログイン・新規登録でお困りのお客様へ',
-      ];
-      List<TextButton> _list = [];
-      for (var i = 0; i < _text.length; i++) {
-        _list.add(TextButton(
-            style: const ButtonStyle(
-                // padding: MaterialStateProperty.all(EdgeInsets.zero),
-                // minimumSize: MaterialStateProperty.all(Size.zero),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-            child: Text(
-              _text[i],
-              style: const TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Color.fromARGB(255, 255, 144, 172),
-                  fontSize: 14),
-            ),
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors
-                      .transparent, // モーダル拝啓を透過させておくことでBorderRadiusの丸みが見える
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: 800,
-                      decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                      child: (i == 0)
-                          ? const Center(
-                              child: Text('Implement phione number sign in'))
-                          : const Center(child: Text('Implement Dialog help')),
-                    );
-                  });
-            }));
-      }
-      return _list;
+    TextButton _makeTextButton(text) {
+      return TextButton(
+          style: const ButtonStyle(
+              // padding: MaterialStateProperty.all(EdgeInsets.zero),
+              // minimumSize: MaterialStateProperty.all(Size.zero),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: const TextStyle(
+                decoration: TextDecoration.none,
+                color: Color.fromARGB(255, 255, 144, 172),
+                fontSize: 14),
+          ),
+          onPressed: () {
+            _showModalBottomSheet(context);
+          });
     }
 
-    return Column(
-      children: [
-        _makeTextButton()[0],
-        _makeTextButton()[1],
-        SpaceBox.height(10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              '利用規約',
-              style: TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Color.fromARGB(255, 169, 169, 169),
-                  fontSize: 13),
-            ),
-            SpaceBox.width(20),
-            const Text(
-              'プライバシーポリシー',
-              style: TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Color.fromARGB(255, 169, 169, 169),
-                  fontSize: 13),
-            )
-          ],
-        ),
+    return Center(
+      child: Column(
+        children: [
+          _makeTextButton('その他の方法でサインイン'),
+          _makeTextButton('ログイン・新規登録でお困りのお客様へ'),
+        ],
+      ),
+    );
+  }
+
+  Future _showModalBottomSheet(context) {
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor:
+            Colors.transparent, // モーダル拝啓を透過させておくことでBorderRadiusの丸みが見える
+        builder: (BuildContext context) {
+          return Container(
+            height: 800,
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(88, 181, 181, 181),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            child: const Center(child: Text('Implement phione number sign in')),
+          );
+        });
+  }
+}
+
+class UsePrivacyPolicyButton extends StatelessWidget {
+  const UsePrivacyPolicyButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    TextButton _makeTextButton(text) {
+      return TextButton(
+          style: const ButtonStyle(
+              // padding: MaterialStateProperty.all(EdgeInsets.zero),
+              // minimumSize: MaterialStateProperty.all(Size.zero),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: const TextStyle(
+                decoration: TextDecoration.none,
+                color: Color.fromARGB(255, 169, 169, 169),
+                fontSize: 13),
+          ),
+          onPressed: () {
+            _showModalBottomSheet(context);
+          });
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        _makeTextButton('利用規約'),
+        _makeTextButton('プライバシーポリシー'),
       ],
     );
+  }
+
+  Future _showModalBottomSheet(context) {
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor:
+            Colors.transparent, // モーダルを透過させておくことでBorderRadiusの丸みが見える
+        builder: (BuildContext context) {
+          return Container(
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            child: const Center(child: Text('Implement phione number sign in')),
+          );
+        });
   }
 }
 
