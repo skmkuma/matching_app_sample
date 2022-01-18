@@ -194,7 +194,7 @@ class SignInSupportButton extends StatelessWidget {
             Colors.transparent, // モーダル拝啓を透過させておくことでBorderRadiusの丸みが見える
         builder: (BuildContext context) {
           return (index == 0)
-              ? const PhoneNumberSignInPage()
+              ? PhoneNumberSignInPage()
               : OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 200),
