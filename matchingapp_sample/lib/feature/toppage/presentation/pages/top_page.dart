@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matchingapp_sample/feature/toppage/presentation/pages/phone_number_sigin_in_page.dart';
 
 class TopPage extends StatelessWidget {
   const TopPage({Key? key}) : super(key: key);
@@ -157,7 +158,7 @@ class SignInSupportButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextButton _makeTextButton(text) {
+    TextButton _makeTextButton(String text, int index) {
       return TextButton(
           style: const ButtonStyle(
               // padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -171,36 +172,44 @@ class SignInSupportButton extends StatelessWidget {
                 fontSize: 14),
           ),
           onPressed: () {
-            _showModalBottomSheet(context);
+            _showModalBottomSheet(context, index);
           });
     }
 
     return Center(
       child: Column(
         children: [
-          _makeTextButton('その他の方法でサインイン'),
-          _makeTextButton('ログイン・新規登録でお困りのお客様へ'),
+          _makeTextButton('その他の方法でサインイン', 0),
+          _makeTextButton('ログイン・新規登録でお困りのお客様へ', 1),
         ],
       ),
     );
   }
 
-  Future _showModalBottomSheet(context) {
+  Future _showModalBottomSheet(BuildContext context, int index) {
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         backgroundColor:
             Colors.transparent, // モーダル拝啓を透過させておくことでBorderRadiusの丸みが見える
         builder: (BuildContext context) {
-          return Container(
-            height: 800,
-            decoration: const BoxDecoration(
-                color: Color.fromARGB(88, 181, 181, 181),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: const Center(child: Text('Implement phione number sign in')),
-          );
+          return (index == 0)
+              ? const PhoneNumberSignInPage()
+              : OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 200),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                  child: const Text(
+                    'ログインでお困りのお客様',
+                    style: TextStyle(
+                        fontSize: 17,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {});
         });
   }
 }
@@ -220,7 +229,7 @@ class UsePrivacyPolicyButton extends StatelessWidget {
             text,
             style: const TextStyle(
                 decoration: TextDecoration.none,
-                color: Color.fromARGB(255, 169, 169, 169),
+                color: Color.fromARGB(255, 94, 93, 93),
                 fontSize: 13),
           ),
           onPressed: () {
@@ -236,24 +245,22 @@ class UsePrivacyPolicyButton extends StatelessWidget {
       ],
     );
   }
+}
 
-  Future _showModalBottomSheet(context) {
-    return showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor:
-            Colors.transparent, // モーダルを透過させておくことでBorderRadiusの丸みが見える
-        builder: (BuildContext context) {
-          return Container(
-            decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: const Center(child: Text('Implement phione number sign in')),
-          );
-        });
-  }
+Future _showModalBottomSheet(context) {
+  return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent, // モーダルを透過させておくことでBorderRadiusの丸みが見える
+      builder: (BuildContext context) {
+        return Container(
+          decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          child: const Center(child: Text('Implement phione number sign in')),
+        );
+      });
 }
 
 class SpaceBox extends SizedBox {
