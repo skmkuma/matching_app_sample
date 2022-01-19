@@ -12,43 +12,61 @@ class TopPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
-            child: Container(
+        Container(
           width: double.infinity,
           height: double.infinity,
           color: const Color.fromARGB(255, 255, 255, 255),
-        )),
-        Positioned(
-          top: 0,
-          height: 550,
-          left: -70,
-          child: Image.asset(
-            'images/top_bizyo.jpg',
-            // scale: 2.4,
-            height: 600,
-          ),
         ),
-        const Positioned(
-            top: 250,
-            left: 30,
+        Stack(children: <Widget>[
+          Image.asset(
+            'images/top_bizyo.jpg',
+            height: 560,
+            fit: BoxFit.cover,
+          ),
+          const Center(
             child: Text(
               'MatchingAppSample',
               style: TextStyle(
                   decoration: TextDecoration.none,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 255, 0, 255),
                   fontSize: 30),
-            )),
-        const Padding(
-          padding: EdgeInsets.only(right: 25, left: 25, top: 535),
-          child: SignInButton(),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 720),
-          child: SignInSupportButton(),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 790),
-          child: UsePrivacyPolicyButton(),
+            ),
+          )
+        ]),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const <Widget>[
+              SignInButton(
+                  snsId: 0,
+                  text: 'Facebookでサインイン',
+                  icon: Icons.facebook_outlined,
+                  bordercolor: Color.fromARGB(255, 0, 72, 255),
+                  backgroundcolor: Color.fromARGB(255, 0, 72, 255),
+                  textColor: Color.fromARGB(255, 255, 255, 255)),
+              SizedBox(height: 10),
+              SignInButton(
+                snsId: 1,
+                text: 'メールアドレスでサインイン',
+                icon: Icons.mail_outline_outlined,
+                bordercolor: Color.fromARGB(255, 255, 255, 255),
+                backgroundcolor: Color.fromARGB(255, 0, 166, 255),
+                textColor: Color.fromARGB(255, 255, 255, 255),
+              ),
+              SizedBox(height: 10),
+              SignInButton(
+                snsId: 2,
+                text: 'Appleでサインイン',
+                icon: Icons.app_registration_outlined,
+                bordercolor: Color.fromARGB(255, 0, 0, 0),
+                backgroundcolor: Color.fromARGB(255, 255, 255, 255),
+                textColor: Color.fromARGB(255, 0, 0, 0),
+              ),
+              SignInSupportButton(),
+              UsePrivacyPolicyButton(),
+            ],
+          ),
         )
       ],
     );
@@ -56,100 +74,66 @@ class TopPage extends StatelessWidget {
 }
 
 class SignInButton extends StatelessWidget {
-  const SignInButton({Key? key}) : super(key: key);
+  final int snsId;
+  final String text;
+  final IconData icon;
+  final Color bordercolor;
+  final Color backgroundcolor;
+  final Color textColor;
+
+  const SignInButton({
+    Key? key,
+    required this.snsId,
+    required this.text,
+    required this.icon,
+    required this.backgroundcolor,
+    required this.textColor,
+    required this.bordercolor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              backgroundColor: const Color.fromARGB(255, 0, 72, 255),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)),
-              side: const BorderSide(
-                width: 2,
-                color: Color.fromARGB(255, 0, 72, 255),
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                const Icon(
-                  Icons.facebook_outlined,
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
-                SpaceBox.width(30),
-                const Text(
-                  'Facebookでサインイン',
-                  style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            onPressed: () {}),
-        SpaceBox.height(10),
-        OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              backgroundColor: const Color.fromARGB(255, 0, 195, 255),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)),
-              side: const BorderSide(
-                width: 2,
-                color: Color.fromARGB(255, 0, 195, 255),
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                const Icon(
-                  Icons.mail_outline_outlined,
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
-                SpaceBox.width(30),
-                const Text(
-                  'メールアドレスでサインイン',
-                  style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            onPressed: () {}),
-        SpaceBox.height(10),
-        OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)),
-              side: const BorderSide(
-                width: 2,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                const Icon(
-                  Icons.app_registration_outlined,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-                SpaceBox.width(30),
-                const Text(
-                  'Appleでサインイン',
-                  style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            onPressed: () {}),
-      ],
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        backgroundColor: backgroundcolor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        side: BorderSide(
+          width: 2,
+          color: bordercolor,
+        ),
+      ),
+      child: Row(
+        children: <Widget>[
+          Icon(icon, color: textColor),
+          SpaceBox.width(30),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: 17, color: textColor, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      onPressed: () {
+        if (snsId == 0) {
+          null;
+        } else if (snsId == 1) {
+          null;
+        } else {
+          null;
+        }
+      },
     );
+  }
+}
+
+class SignInToSnsPage extends StatelessWidget {
+  const SignInToSnsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
 
